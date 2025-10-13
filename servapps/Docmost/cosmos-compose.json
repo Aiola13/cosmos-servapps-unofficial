@@ -7,9 +7,9 @@
             "container_name": "{ServiceName}",
             "restart": "unless-stopped",
             "environment": [
-                "APP_URL=https://{Hostnames[0]}",
-                "APP_SECRET={RandomSecret}",
-                "DATABASE_URL=postgresql://docmost:{DatabasePassword}@{ServiceName}-db:5432/docmost?schema=public",
+                "APP_URL=https://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+                "APP_SECRET=a2a48ef56c7cbdc8de0061d50b30b8943c83a1921c1f1b170923e6dbec58cdb5",
+                "DATABASE_URL=postgresql://docmost:{Passwords.1}@{ServiceName}-db:5432/docmost?schema=public",
                 "REDIS_URL=redis://{ServiceName}-redis:6379"
             ],
             "labels": {
@@ -44,7 +44,7 @@
             "environment": [
                 "POSTGRES_DB=docmost",
                 "POSTGRES_USER=docmost",
-                "POSTGRES_PASSWORD={DatabasePassword}"
+                "POSTGRES_PASSWORD={Passwords.1}"
             ],
             "labels": {
                 "cosmos.stack": "{ServiceName}-{ServiceName}",
