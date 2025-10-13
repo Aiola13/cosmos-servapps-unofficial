@@ -6,10 +6,6 @@
             "image": "docmost/docmost:latest",
             "container_name": "{ServiceName}",
             "restart": "unless-stopped",
-            "depends_on": [
-                "{ServiceName}-db",
-                "{ServiceName}-redis"
-            ],
             "environment": [
                 "APP_URL=https://{Hostnames[0]}",
                 "APP_SECRET={RandomSecret}",
@@ -17,10 +13,11 @@
                 "REDIS_URL=redis://{ServiceName}-redis:6379"
             ],
             "labels": {
+                "cosmos.stack": "{ServiceName}-{ServiceName}",
                 "cosmos-force-network-secured": "true",
                 "cosmos-auto-update": "true",
                 "cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/docmost/logo.png"
-            },
+            }, 
             "volumes": [{
                 "source": "{ServiceName}-data",
                 "target": "/app/data/storage",
@@ -50,6 +47,7 @@
                 "POSTGRES_PASSWORD={DatabasePassword}"
             ],
             "labels": {
+                "cosmos.stack": "{ServiceName}-{ServiceName}",
                 "cosmos-force-network-secured": "true",
                 "cosmos-auto-update": "true"
             },
@@ -64,6 +62,7 @@
             "container_name": "{ServiceName}-redis",
             "restart": "unless-stopped",
             "labels": {
+                "cosmos.stack": "{ServiceName}-{ServiceName}",
                 "cosmos-force-network-secured": "true",
                 "cosmos-auto-update": "true"
             },
