@@ -64,9 +64,9 @@
 				}
 			]
 		},
-		"{ServiceName}-db": {
+		"db": {
 			"image": "postgres:17",
-			"container_name": "{ServiceName}-db",
+			"container_name": "db",
 			"restart": "unless-stopped",
 			"environment": [
 				"POSTGRES_USER=MediaManager",
