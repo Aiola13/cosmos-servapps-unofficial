@@ -1,0 +1,15 @@
+{
+	"name": "Neko",
+	"longDescription": "<p>Neko is a self-hosted virtual browser that runs in Docker and uses WebRTC technology. It allows multiple users to access and control a browser or desktop environment remotely in real-time. Perfect for watch parties, collaborative browsing, interactive presentations, or simply browsing the web securely. Every session runs in an isolated environment with no history or cookies left behind, ensuring complete privacy.</p>",
+	"description": "A self-hosted virtual browser that runs in Docker with WebRTC for secure collaborative browsing",
+	"tags": [
+		"browser",
+		"webrtc",
+		"remote-desktop",
+		"collaboration",
+		"self-hosted"
+	],
+	"repository": "https://github.com/m1k1o/neko",
+	"image": "https://hub.docker.com/r/m1k1o/neko",
+	"supported_architectures": ["amd64", "arm64"]
+}
