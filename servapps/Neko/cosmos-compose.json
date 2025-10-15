@@ -14,7 +14,6 @@
 				"NEKO_WEBRTC_EPR=52000-52100",
 				"NEKO_WEBRTC_ICELITE=1"
 			],
-			"ports": ["52000-52100:52000-52100/udp"],
 			"labels": {
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
