@@ -21,7 +21,6 @@
 			"image": "ghcr.io/maxdorninger/mediamanager/mediamanager:latest",
 			"container_name": "{ServiceName}",
 			"restart": "unless-stopped",
-			"hostname": "mediamanager",
 			"environment": [
 				"CONFIG_DIR=/app/config"
 			],
@@ -69,7 +68,6 @@
 			"image": "postgres:17",
 			"container_name": "{ServiceName}-db",
 			"restart": "unless-stopped",
-			"hostname": "db",
 			"environment": [
 				"POSTGRES_USER=MediaManager",
 				"POSTGRES_DB=MediaManager",
