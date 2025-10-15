@@ -1,0 +1,92 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "mediaPath",
+				"label": "What is the path to your media library?",
+				"initialValue": "/mnt/data/MediaManager/data",
+				"type": "text"
+			},
+			{
+				"name": "imagesPath",
+				"label": "What is the path to store images?",
+				"initialValue": "/mnt/data/MediaManager/images",
+				"type": "text"
+			}
+		]
+	},
+	"minVersion": "0.9.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "ghcr.io/maxdorninger/mediamanager/mediamanager:latest",
+			"container_name": "{ServiceName}",
+			"restart": "unless-stopped",
+			"hostname": "mediamanager",
+			"environment": [
+				"CONFIG_DIR=/app/config"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "true",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Mediamanager/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-config",
+					"target": "/app/config",
+					"type": "volume"
+				},
+				{
+					"source": "{Context.mediaPath}",
+					"target": "/data",
+					"type": "bind"
+				},
+				{
+					"source": "{Context.imagesPath}",
+					"target": "/data/images",
+					"type": "bind"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:8000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		},
+		"{ServiceName}-db": {
+			"image": "postgres:17",
+			"container_name": "{ServiceName}-db",
+			"restart": "unless-stopped",
+			"hostname": "db",
+			"environment": [
+				"POSTGRES_USER=MediaManager",
+				"POSTGRES_DB=MediaManager",
+				"POSTGRES_PASSWORD=MediaManager"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "false"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-db",
+					"target": "/var/lib/postgresql/data",
+					"type": "volume"
+				}
+			]
+		}
+	}
+}
