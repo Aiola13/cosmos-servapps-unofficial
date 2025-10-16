@@ -1,0 +1,43 @@
+{
+	"cosmos-installer": {
+	},
+	"minVersion": "0.9.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "codeberg.org/readeck/readeck:latest",
+			"container_name": "{ServiceName}",
+			"restart": "unless-stopped",
+			"stdin_open": true,
+			"tty": true,
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "true",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Readeck/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/readeck",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:8000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

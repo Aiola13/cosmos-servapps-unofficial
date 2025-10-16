@@ -1,0 +1,16 @@
+{
+	"name": "Readeck",
+	"longDescription": "<p>Readeck is a simple web application that lets you save the precious readable content of web pages you like and want to keep forever. It extracts and stores the main content of articles, removing ads and clutter, making them easy to read later. Perfect for building your own personal knowledge base or read-it-later service. Readeck provides a clean, distraction-free reading experience with features like tagging, full-text search, and offline access to your saved articles.</p>",
+	"description": "A self-hosted read-it-later service that saves and organizes web articles for distraction-free reading",
+	"tags": [
+		"read-it-later",
+		"bookmarks",
+		"reading",
+		"articles",
+		"self-hosted",
+		"knowledge-base"
+	],
+	"repository": "https://codeberg.org/readeck/readeck",
+	"image": "https://hub.docker.com/r/readeck/readeck",
+	"supported_architectures": ["amd64", "arm64"]
+}

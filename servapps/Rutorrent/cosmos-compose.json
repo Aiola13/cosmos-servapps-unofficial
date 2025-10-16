@@ -29,6 +29,8 @@
             "labels": {
                 "cosmos-force-network-secured": "true",
                 "cosmos-auto-update": "true",
+                "cosmos-stack": "{ServiceName}",
+                "cosmos-stack-main": "true",
                 "cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Rutorrent/icon.png"
             }, 
             "volumes": [
