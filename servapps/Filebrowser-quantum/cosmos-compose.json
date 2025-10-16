@@ -1,0 +1,65 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "filesPath",
+				"label": "What is the path to the folder you want to manage?",
+				"initialValue": "/mnt/data/Divers",
+				"type": "text"
+			},
+			{
+				"name": "adminPassword",
+				"label": "What is the admin password?",
+				"initialValue": "admin",
+				"type": "password"
+			}
+		]
+	},
+	"minVersion": "0.9.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "gtstef/filebrowser:latest",
+			"container_name": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"FILEBROWSER_CONFIG=data/config.yaml",
+				"FILEBROWSER_ADMIN_PASSWORD={Context.adminPassword}",
+				"TZ=Europe/Paris"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "true",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Filebrowser-quantum/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{Context.filesPath}",
+					"target": "/folder",
+					"type": "bind"
+				},
+				{
+					"source": "{ServiceName}-data",
+					"target": "/home/filebrowser/data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:80",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}
