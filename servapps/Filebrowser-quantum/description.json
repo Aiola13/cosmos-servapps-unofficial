@@ -1,5 +1,5 @@
 {
-	"name": "Filebrowser Quantum",
+	"name": "Filebrowser-quantum",
 	"longDescription": "<p>Filebrowser Quantum is an enhanced fork that aims to be the best free self-hosted web-based file manager. It features a modern, responsive interface with advanced capabilities including multiple source support, OIDC authentication with 2FA, ultra-efficient real-time indexing and search, and improved file previews for office documents and videos. The three-component navigation system provides intuitive file browsing with context-aware menus. Developer-friendly features include long-lived API tokens and Swagger documentation. With minimal resource requirements (256 MB RAM) and a lightweight Docker image (180 MB), it's perfect for managing your server files remotely with enterprise-grade features.</p>",
 	"description": "Advanced self-hosted file manager with real-time search, OIDC/2FA authentication, and enhanced previews",
 	"tags": [
