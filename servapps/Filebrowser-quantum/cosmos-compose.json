@@ -40,9 +40,9 @@
 					"type": "bind"
 				},
 				{
-					"source": "{ServiceName}-data",
+					"source": "/mnt/{ServiceName}-data",
 					"target": "/home/filebrowser/data",
-					"type": "volume"
+					"type": "bind"
 				}
 			],
 			"routes": [
