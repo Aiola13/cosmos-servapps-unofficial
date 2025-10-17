@@ -1,0 +1,49 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "gamesPath",
+				"label": "What is the path to your games folder?",
+				"initialValue": "/mnt/data/games",
+				"type": "text"
+			}
+		]
+	},
+	"minVersion": "0.9.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "ghcr.io/nicotsx/nextgba:latest",
+			"container_name": "{ServiceName}",
+			"restart": "unless-stopped",
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "true",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/NextGBA/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{Context.gamesPath}",
+					"target": "/data/games",
+					"type": "bind"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:3000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

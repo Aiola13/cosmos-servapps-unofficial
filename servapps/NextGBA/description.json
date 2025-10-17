@@ -1,0 +1,18 @@
+{
+	"name": "NextGBA",
+	"longDescription": "<p>NextGBA is a self-hosted Game Boy Advance emulator that runs entirely in your browser. Based on EmulatorJS, it provides a modern and responsive interface for playing your favorite retro games directly from your web browser. The application supports Game Boy Advance (GBA), Game Boy Color (GBC), and classic Game Boy (GB) ROM files. Simply upload your ROM files through the intuitive interface and start playing instantly. With save state support and a user-friendly design, NextGBA brings the nostalgia of classic handheld gaming to your modern self-hosted environment. Perfect for preserving your game collection and enjoying retro gaming from any device with a web browser.</p>",
+	"description": "Self-hosted Game Boy Advance emulator that runs in your browser with support for GBA, GBC, and GB games",
+	"tags": [
+		"gaming",
+		"emulator",
+		"gameboy",
+		"gba",
+		"retro",
+		"self-hosted",
+		"web-ui",
+		"entertainment"
+	],
+	"repository": "https://github.com/nicotsx/nextgba",
+	"image": "https://ghcr.io/nicotsx/nextgba",
+	"supported_architectures": ["amd64", "arm64"]
+}
