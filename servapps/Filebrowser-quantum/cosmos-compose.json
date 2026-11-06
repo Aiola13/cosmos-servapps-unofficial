@@ -4,7 +4,7 @@
 			{
 				"name": "filesPath",
 				"label": "What is the path to the folder you want to manage?",
-				"initialValue": "/mnt/data/Divers",
+				"initialValue": "{DefaultDataPath}/filebrowser",
 				"type": "text"
 			},
 			{
@@ -30,7 +30,7 @@
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
 				"cosmos-stack": "{ServiceName}",
-				"cosmos-stack-main": "true",
+				"cosmos-stack-main": "{ServiceName}",
 				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Filebrowser-quantum/icon.png"
 			},
 			"volumes": [
@@ -40,7 +40,7 @@
 					"type": "bind"
 				},
 				{
-					"source": "/mnt/{ServiceName}-data",
+					"source": "{DefaultDataPath}/{ServiceName}-data",
 					"target": "/home/filebrowser/data",
 					"type": "bind"
 				}

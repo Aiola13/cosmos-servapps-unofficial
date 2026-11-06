@@ -13,7 +13,7 @@
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
 				"cosmos-stack": "{ServiceName}",
-				"cosmos-stack-main": "true",
+				"cosmos-stack-main": "{ServiceName}",
 				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Readeck/icon.png"
 			},
 			"volumes": [

@@ -8,15 +8,21 @@
 			"restart": "unless-stopped",
 			"environment": [
 				"APP_URL=https://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
-				"APP_SECRET=a2a48ef56c7cbdc8de0061d50b30b8943c83a1921c1f1b170923e6dbec58cdb5",
+				"APP_SECRET={Passwords.2}{Passwords.3}",
 				"DATABASE_URL=postgresql://docmost:{Passwords.1}@{ServiceName}-db:5432/docmost?schema=public",
 				"REDIS_URL=redis://{ServiceName}-redis:6379"
 			],
 			"labels": {
-				"cosmos.stack": "{ServiceName}-{ServiceName}",
+				"cosmos-persistent-env": "APP_SECRET, DATABASE_URL",
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
-				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/docmost/icon.png"
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Docmost/icon.png"
+			},
+			"depends_on": {
+				"{ServiceName}-db": {},
+				"{ServiceName}-redis": {}
 			},
 			"volumes": [
 				{
@@ -51,9 +57,11 @@
 				"POSTGRES_PASSWORD={Passwords.1}"
 			],
 			"labels": {
-				"cosmos.stack": "{ServiceName}-{ServiceName}",
+				"cosmos-persistent-env": "POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_DB",
 				"cosmos-force-network-secured": "true",
-				"cosmos-auto-update": "true"
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}"
 			},
 			"volumes": [
 				{
@@ -68,9 +76,10 @@
 			"container_name": "{ServiceName}-redis",
 			"restart": "unless-stopped",
 			"labels": {
-				"cosmos.stack": "{ServiceName}-{ServiceName}",
 				"cosmos-force-network-secured": "true",
-				"cosmos-auto-update": "true"
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}"
 			},
 			"volumes": [
 				{

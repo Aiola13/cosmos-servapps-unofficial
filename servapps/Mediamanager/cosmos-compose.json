@@ -4,13 +4,13 @@
 			{
 				"name": "mediaPath",
 				"label": "What is the path to your media library?",
-				"initialValue": "/mnt/data/MediaManager/data",
+				"initialValue": "{DefaultDataPath}/MediaManager/data",
 				"type": "text"
 			},
 			{
 				"name": "imagesPath",
 				"label": "What is the path to store images?",
-				"initialValue": "/mnt/data/MediaManager/images",
+				"initialValue": "{DefaultDataPath}/MediaManager/images",
 				"type": "text"
 			}
 		]
@@ -22,14 +22,23 @@
 			"container_name": "{ServiceName}",
 			"restart": "unless-stopped",
 			"environment": [
-				"CONFIG_DIR=/app/config"
+				"CONFIG_DIR=/app/config",
+				"MEDIAMANAGER_DATABASE__HOST={ServiceName}-db",
+				"MEDIAMANAGER_DATABASE__PORT=5432",
+				"MEDIAMANAGER_DATABASE__USER=MediaManager",
+				"MEDIAMANAGER_DATABASE__PASSWORD={Passwords.0}",
+				"MEDIAMANAGER_DATABASE__DBNAME=MediaManager"
 			],
 			"labels": {
+				"cosmos-persistent-env": "MEDIAMANAGER_DATABASE__PASSWORD",
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
 				"cosmos-stack": "{ServiceName}",
-				"cosmos-stack-main": "true",
+				"cosmos-stack-main": "{ServiceName}",
 				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Mediamanager/icon.png"
+			},
+			"depends_on": {
+				"{ServiceName}-db": {}
 			},
 			"volumes": [
 				{
@@ -64,19 +73,20 @@
 				}
 			]
 		},
-		"db": {
+		"{ServiceName}-db": {
 			"image": "postgres:17",
-			"container_name": "db",
+			"container_name": "{ServiceName}-db",
 			"restart": "unless-stopped",
 			"environment": [
 				"POSTGRES_USER=MediaManager",
 				"POSTGRES_DB=MediaManager",
-				"POSTGRES_PASSWORD=MediaManager"
+				"POSTGRES_PASSWORD={Passwords.0}"
 			],
 			"labels": {
+				"cosmos-persistent-env": "POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_DB",
 				"cosmos-force-network-secured": "true",
 				"cosmos-stack": "{ServiceName}",
-				"cosmos-stack-main": "false"
+				"cosmos-stack-main": "{ServiceName}"
 			},
 			"volumes": [
 				{

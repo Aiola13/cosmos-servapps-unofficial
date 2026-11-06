@@ -4,7 +4,7 @@
 			{
 				"name": "gamesPath",
 				"label": "What is the path to your games folder?",
-				"initialValue": "/mnt/data/games",
+				"initialValue": "{DefaultDataPath}/games",
 				"type": "text"
 			}
 		]
@@ -19,7 +19,7 @@
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
 				"cosmos-stack": "{ServiceName}",
-				"cosmos-stack-main": "true",
+				"cosmos-stack-main": "{ServiceName}",
 				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/NextGBA/icon.png"
 			},
 			"volumes": [
@@ -34,6 +34,7 @@
 					"name": "{ServiceName}",
 					"description": "Expose {ServiceName} to the web",
 					"useHost": true,
+					"AuthEnabled": true,
 					"target": "http://{ServiceName}:3000",
 					"mode": "SERVAPP",
 					"Timeout": 14400000,

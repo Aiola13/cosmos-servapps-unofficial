@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { config } = require('process');
 const configFile = require('./config.json');
 
 // list all directories in the directory servapps and compile them in servapps.json
@@ -17,7 +16,8 @@ for (const file of servapps) {
 	servapp.artefacts = {};
 
 	// list all screenshots in the directory servapps/${file}/screenshots
-	const screenshots = fs.readdirSync(`./servapps/${file}/screenshots`);
+	const screenshotsDir = `./servapps/${file}/screenshots`;
+	const screenshots = fs.existsSync(screenshotsDir) ? fs.readdirSync(screenshotsDir) : [];
 	for (const screenshot of screenshots) {
 		servapp.screenshots.push(
 			`https://aiola13.github.io/cosmos-servapps-unofficial/servapps/${file}/screenshots/${screenshot}`,
@@ -49,7 +49,7 @@ for (const file of servapps) {
 }
 
 // add showcase
-const _sc = ['Jellyfin', 'Home Assistant', 'Nextcloud'];
+const _sc = ['Docmost', 'Readeck', 'Wiki.js 3'];
 const showcases = servappsJSON.filter(app => _sc.includes(app.name));
 
 let apps = {

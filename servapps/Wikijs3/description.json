@@ -1,0 +1,16 @@
+{
+	"name": "Wiki.js 3",
+	"longDescription": "<p>Wiki.js 3 is the next generation of the popular open-source wiki software built on Node.js. It offers a modern visual and Markdown editor, a powerful permission system, multiple authentication providers, full-text search, page versioning and a fully customizable interface. Wiki.js 3 requires PostgreSQL, which is bundled in this stack (PostgreSQL 18). An admin account is created on first start with the email and password provided during installation.</p>",
+	"description": "The next generation of the powerful open-source wiki software built on Node.js (PostgreSQL bundled)",
+	"tags": [
+		"wiki",
+		"documentation",
+		"knowledge-base",
+		"markdown",
+		"postgres",
+		"self-hosted"
+	],
+	"repository": "https://github.com/requarks/wiki",
+	"image": "https://github.com/requarks/wiki/pkgs/container/wiki",
+	"supported_architectures": ["amd64", "arm64"]
+}
