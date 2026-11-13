@@ -19,7 +19,6 @@ The apps then show up in the Market, next to the official ones.
 | App | Description | Image | Arch |
 |---|---|---|---|
 | [Docmost](https://github.com/docmost/docmost) | Collaborative wiki and docs (Notion/Confluence alternative). PostgreSQL and Redis bundled | `docmost/docmost` | amd64, arm64 |
-| [Filebrowser Quantum](https://github.com/gtsteffaniak/filebrowser) | Web file manager with real-time search and OIDC/2FA | `gtstef/filebrowser` | amd64, arm64, arm |
 | [Kutt](https://github.com/thedevs-network/kutt) | URL shortener with custom domains, statistics and a REST API. SQLite built in | `kutt/kutt` | amd64, arm64 |
 | [MediaManager](https://github.com/maxdorninger/MediaManager) | Movie and TV library manager. PostgreSQL bundled | `ghcr.io/maxdorninger/mediamanager/mediamanager` | amd64, arm64 |
 | [Neko](https://github.com/m1k1o/neko) | Virtual browser shared over WebRTC | `ghcr.io/m1k1o/neko/firefox` | amd64, arm64 |
