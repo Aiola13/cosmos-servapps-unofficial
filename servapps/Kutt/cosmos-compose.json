@@ -1,0 +1,68 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "warning",
+				"label": "Open Kutt right after the installation: the first visitor is prompted to create the admin account."
+			},
+			{
+				"type": "info",
+				"label": "Registration and anonymous link creation are disabled by default. Set DISALLOW_REGISTRATION and DISALLOW_ANONYMOUS_LINKS to false in the container's environment to enable them (registration also needs the MAIL_* settings)."
+			}
+		]
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "kutt/kutt:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"JWT_SECRET={Passwords.0}{Passwords.1}",
+				"DEFAULT_DOMAIN={Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+				"SITE_NAME=Kutt",
+				"DB_CLIENT=better-sqlite3",
+				"DB_FILENAME=/var/lib/kutt/data.sqlite",
+				"TRUST_PROXY=true",
+				"DISALLOW_REGISTRATION=true",
+				"DISALLOW_ANONYMOUS_LINKS=true"
+			],
+			"labels": {
+				"cosmos-persistent-env": "JWT_SECRET",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Kutt/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/var/lib/kutt",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-custom",
+					"target": "/kutt/custom",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:3000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

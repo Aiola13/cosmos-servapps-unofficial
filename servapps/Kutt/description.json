@@ -1,0 +1,16 @@
+{
+	"name": "Kutt",
+	"longDescription": "<p>Kutt is a free, modern URL shortener with support for custom domains. Create, edit, password-protect and expire short links, view click statistics, manage users from an admin panel and automate everything through a REST API. This stack runs Kutt with its built-in SQLite database, so no extra database container is needed. On first start you are prompted to create the admin account. Registration and anonymous link creation are disabled by default.</p>",
+	"description": "A free, modern URL shortener with custom domains, link statistics and a REST API",
+	"tags": [
+		"url-shortener",
+		"links",
+		"short-links",
+		"analytics",
+		"sqlite",
+		"self-hosted"
+	],
+	"repository": "https://github.com/thedevs-network/kutt",
+	"image": "https://hub.docker.com/r/kutt/kutt",
+	"supported_architectures": ["amd64", "arm64"]
+}
