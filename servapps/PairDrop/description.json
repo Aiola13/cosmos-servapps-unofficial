@@ -1,0 +1,19 @@
+{
+	"name": "PairDrop",
+	"longDescription": "<p>PairDrop is local file sharing in your browser, inspired by Apple's AirDrop. Open it on two devices and send files, images or text between them, peer-to-peer over WebRTC, without any account or app to install. Devices on the same network find each other automatically. Devices on different networks can be paired permanently or meet in a temporary public room.</p><p>The server only helps devices find each other: files go directly from one device to the other and nothing is stored. PairDrop has no login.</p>",
+	"description": "Local file sharing in your browser, inspired by AirDrop: send files between devices peer-to-peer",
+	"tags": [
+		"file-sharing",
+		"airdrop",
+		"webrtc",
+		"p2p",
+		"transfer",
+		"self-hosted"
+	],
+	"repository": "https://github.com/schlagmichdoch/PairDrop",
+	"image": "https://github.com/linuxserver/docker-pairdrop/pkgs/container/pairdrop",
+	"supported_architectures": [
+		"amd64",
+		"arm64"
+	]
+}

@@ -1,0 +1,56 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "info",
+				"key": "post-install.usage",
+				"label": "Open PairDrop on two devices of the same network to send files between them. To reach a device on another network, use a public room or pair the devices. PairDrop has no login: anyone who knows the URL can use it."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.usage": "Ouvrez PairDrop sur deux appareils du même réseau pour échanger des fichiers. Pour joindre un appareil sur un autre réseau, utilisez un salon public ou appairez les appareils. PairDrop n'a pas de connexion : toute personne connaissant l'URL peut l'utiliser."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "lscr.io/linuxserver/pairdrop:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"TZ=auto",
+				"PUID=1000",
+				"PGID=1000",
+				"WS_FALLBACK=false",
+				"RATE_LIMIT=false",
+				"RTC_CONFIG=false",
+				"DEBUG_MODE=false"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/PairDrop/icon.png"
+			},
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:3000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}
