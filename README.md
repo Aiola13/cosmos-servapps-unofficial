@@ -29,6 +29,7 @@ The apps then show up in the Market, next to the official ones.
 | [Neko](https://github.com/m1k1o/neko) | Virtual browser shared over WebRTC | `ghcr.io/m1k1o/neko/firefox` | amd64, arm64 |
 | [NextGBA](https://github.com/nicotsx/nextgba) | GBA / GBC / GB emulator in the browser | `ghcr.io/nicotsx/nextgba` | amd64, arm64 |
 | [PairDrop](https://github.com/schlagmichdoch/PairDrop) | AirDrop-like file sharing between devices, in the browser | `lscr.io/linuxserver/pairdrop` | amd64, arm64 |
+| [Pocket ID](https://github.com/pocket-id/pocket-id) | Simple OIDC provider with passkey sign-in. SQLite built in | `ghcr.io/pocket-id/pocket-id:v2` | amd64, arm64 |
 | [Readeck](https://codeberg.org/readeck/readeck) | Read-it-later and bookmark manager | `codeberg.org/readeck/readeck` | amd64, arm64 |
 | [RomM](https://github.com/rommapp/romm) | ROM library manager with metadata and in-browser play. MariaDB bundled | `rommapp/romm` | amd64, arm64 |
 | [ruTorrent](https://github.com/crazy-max/docker-rtorrent-rutorrent) | rTorrent and ruTorrent web UI | `crazymax/rtorrent-rutorrent` | amd64, arm64 |
@@ -44,6 +45,7 @@ The apps then show up in the Market, next to the official ones.
 - **Kutt**: you create the admin account on first visit, so open the app right after install. Registration and anonymous links are off by default (`DISALLOW_REGISTRATION`, `DISALLOW_ANONYMOUS_LINKS`). `DEFAULT_DOMAIN` is set from the hostname chosen at install. Change it if you change the route's hostname.
 - **Linkding**: an `admin` account is created on first start with a generated password, shown at the end of the install and stored in `LD_SUPERUSER_PASSWORD`.
 - **PairDrop**: it has no login and its route is public, so that phones and guests can use it. Turn on Cosmos authentication on the route if you want to restrict it. Set `WS_FALLBACK=true` if devices cannot connect peer-to-peer.
+- **Pocket ID**: open `/setup` right after install to create the admin account. Passkeys need HTTPS. `ENCRYPTION_KEY` is generated and must not change afterwards.
 - **RomM**: the first visit runs a setup wizard that creates the admin account, so open the app right after install. The library folder must contain a `roms` folder with one sub-folder per platform. The ScreenScraper, RetroAchievements and SteamGridDB keys asked at install are optional.
 - **Vikunja**: registration is open by default. Create your account, then set `VIKUNJA_SERVICE_ENABLEREGISTRATION=false`. The container runs as root (`user: 0:0`) because the image runs as UID 1000 and cannot write to fresh Docker volumes otherwise.
 - **NextGBA** and **ruTorrent** have no built-in login, so their route turns on **Cosmos authentication** (`AuthEnabled`).

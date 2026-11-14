@@ -1,0 +1,68 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open {RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}/setup right after the installation to create the admin account and register its passkey."
+			},
+			{
+				"type": "info",
+				"key": "post-install.https",
+				"label": "Passkeys only work over HTTPS. Do not change APP_URL or ENCRYPTION_KEY after the installation."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.setup": "Ouvrez {RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}/setup juste après l'installation pour créer le compte administrateur et enregistrer sa passkey.",
+				"post-install.https": "Les passkeys ne fonctionnent qu'en HTTPS. Ne modifiez pas APP_URL ni ENCRYPTION_KEY après l'installation."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "ghcr.io/pocket-id/pocket-id:v2",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"APP_URL={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+				"ENCRYPTION_KEY={Passwords.0}{Passwords.1}",
+				"TRUST_PROXY=true",
+				"PUID=1000",
+				"PGID=1000"
+			],
+			"labels": {
+				"cosmos-persistent-env": "ENCRYPTION_KEY",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/PocketID/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/app/data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:1411",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

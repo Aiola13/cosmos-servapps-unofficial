@@ -1,0 +1,20 @@
+{
+	"name": "Pocket ID",
+	"longDescription": "<p>Pocket ID is a simple OIDC provider that lets users authenticate to your services with their passkeys, without any password. It is much easier to set up than Keycloak or Authentik when all you need is passkey sign-in: add your apps as OIDC clients, manage users and groups, and optionally sync them from LDAP.</p><p>This app follows the Pocket ID 2 release line and uses the built-in SQLite database. Passkeys require HTTPS. Open <code>/setup</code> on first visit to create the admin account.</p>",
+	"description": "A simple OIDC provider that lets users sign in to your services with passkeys",
+	"tags": [
+		"authentication",
+		"oidc",
+		"sso",
+		"passkeys",
+		"identity",
+		"security",
+		"self-hosted"
+	],
+	"repository": "https://github.com/pocket-id/pocket-id",
+	"image": "https://github.com/pocket-id/pocket-id/pkgs/container/pocket-id",
+	"supported_architectures": [
+		"amd64",
+		"arm64"
+	]
+}
