@@ -1,0 +1,78 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "ollamaUrl",
+				"label": "URL of your Ollama server (keep the default if Ollama runs on this host; ignore it if you only use API providers)",
+				"initialValue": "http://host.docker.internal:11434",
+				"type": "text"
+			}
+		],
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open Open WebUI right after the installation: the first account created becomes the administrator. The first start can take a few minutes."
+			},
+			{
+				"type": "info",
+				"key": "post-install.models",
+				"label": "Add your model providers (Ollama, OpenAI-compatible APIs) in Admin Panel > Settings > Connections."
+			}
+		],
+		"translation": {
+			"fr": {
+				"form.ollamaUrl.label": "URL de votre serveur Ollama (gardez la valeur par défaut si Ollama tourne sur cet hôte ; ignorez-la si vous n'utilisez que des fournisseurs par API)",
+				"post-install.setup": "Ouvrez Open WebUI juste après l'installation : le premier compte créé devient administrateur. Le premier démarrage peut prendre quelques minutes.",
+				"post-install.models": "Ajoutez vos fournisseurs de modèles (Ollama, API compatibles OpenAI) dans Panneau d'administration > Paramètres > Connexions."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "ghcr.io/open-webui/open-webui:main",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"WEBUI_SECRET_KEY={Passwords.0}{Passwords.1}",
+				"WEBUI_URL={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+				"OLLAMA_BASE_URL={Context.ollamaUrl}"
+			],
+			"extra_hosts": [
+				"host.docker.internal:host-gateway"
+			],
+			"labels": {
+				"cosmos-persistent-env": "WEBUI_SECRET_KEY",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/OpenWebUI/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/app/backend/data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:8080",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

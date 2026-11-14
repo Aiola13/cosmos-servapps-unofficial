@@ -28,6 +28,7 @@ The apps then show up in the Market, next to the official ones.
 | [MediaManager](https://github.com/maxdorninger/MediaManager) | Movie and TV library manager. PostgreSQL bundled | `quay.io/maxdorninger/mediamanager` | amd64, arm64 |
 | [Neko](https://github.com/m1k1o/neko) | Virtual browser shared over WebRTC | `ghcr.io/m1k1o/neko/firefox` | amd64, arm64 |
 | [NextGBA](https://github.com/nicotsx/nextgba) | GBA / GBC / GB emulator in the browser | `ghcr.io/nicotsx/nextgba` | amd64, arm64 |
+| [Open WebUI](https://github.com/open-webui/open-webui) | ChatGPT-like interface for Ollama and OpenAI-compatible APIs | `ghcr.io/open-webui/open-webui:main` | amd64, arm64 |
 | [PairDrop](https://github.com/schlagmichdoch/PairDrop) | AirDrop-like file sharing between devices, in the browser | `lscr.io/linuxserver/pairdrop` | amd64, arm64 |
 | [Pocket ID](https://github.com/pocket-id/pocket-id) | Simple OIDC provider with passkey sign-in. SQLite built in | `ghcr.io/pocket-id/pocket-id:v2` | amd64, arm64 |
 | [Readeck](https://codeberg.org/readeck/readeck) | Read-it-later and bookmark manager | `codeberg.org/readeck/readeck` | amd64, arm64 |
@@ -44,6 +45,7 @@ The apps then show up in the Market, next to the official ones.
 - **Glance**: it needs a `glance.yml` to start. The entrypoint is overridden to download the sample from `servapps/Glance/artefacts/glance.yml` into the config volume when the file is missing. Glance has no built-in login by default, so its route turns on **Cosmos authentication**.
 - **Kutt**: you create the admin account on first visit, so open the app right after install. Registration and anonymous links are off by default (`DISALLOW_REGISTRATION`, `DISALLOW_ANONYMOUS_LINKS`). `DEFAULT_DOMAIN` is set from the hostname chosen at install. Change it if you change the route's hostname.
 - **Linkding**: an `admin` account is created on first start with a generated password, shown at the end of the install and stored in `LD_SUPERUSER_PASSWORD`.
+- **Open WebUI**: the first account created becomes the administrator, so open the app right after install. Ollama is not bundled: the Ollama URL asked at install defaults to an Ollama running on the host (`host.docker.internal:11434`).
 - **PairDrop**: it has no login and its route is public, so that phones and guests can use it. Turn on Cosmos authentication on the route if you want to restrict it. Set `WS_FALLBACK=true` if devices cannot connect peer-to-peer.
 - **Pocket ID**: open `/setup` right after install to create the admin account. Passkeys need HTTPS. `ENCRYPTION_KEY` is generated and must not change afterwards.
 - **RomM**: the first visit runs a setup wizard that creates the admin account, so open the app right after install. The library folder must contain a `roms` folder with one sub-folder per platform. The ScreenScraper, RetroAchievements and SteamGridDB keys asked at install are optional.
