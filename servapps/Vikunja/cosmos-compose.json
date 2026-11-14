@@ -1,0 +1,68 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.register",
+				"label": "Open Vikunja right after the installation and register your account. Registration is open to anyone by default: set VIKUNJA_SERVICE_ENABLEREGISTRATION to false in the container's environment once your accounts are created."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.register": "Ouvrez Vikunja juste après l'installation et créez votre compte. L'inscription est ouverte à tous par défaut : passez VIKUNJA_SERVICE_ENABLEREGISTRATION à false dans l'environnement du conteneur une fois vos comptes créés."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "vikunja/vikunja:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"user": "0:0",
+			"environment": [
+				"VIKUNJA_SERVICE_PUBLICURL={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}/",
+				"VIKUNJA_SERVICE_JWTSECRET={Passwords.0}{Passwords.1}",
+				"VIKUNJA_SERVICE_ENABLEREGISTRATION=true",
+				"VIKUNJA_DATABASE_TYPE=sqlite",
+				"VIKUNJA_DATABASE_PATH=/db/vikunja.db"
+			],
+			"labels": {
+				"cosmos-persistent-env": "VIKUNJA_SERVICE_JWTSECRET",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Vikunja/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-db",
+					"target": "/db",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-files",
+					"target": "/app/vikunja/files",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:3456",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

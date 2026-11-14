@@ -1,0 +1,21 @@
+{
+	"name": "Vikunja",
+	"longDescription": "<p>Vikunja is the open-source to-do app to organize your life. Manage tasks in projects and sub-projects and look at them as a list, a Gantt chart, a table or a Kanban board. It supports due dates, reminders, recurring tasks, priorities, labels, attachments, relations between tasks, sharing with users, teams or public links, CalDAV and imports from Todoist, Trello and Microsoft To Do.</p><p>This app uses the built-in SQLite database, so no extra container is needed. Registration is open by default: create your account, then disable registration.</p>",
+	"description": "The open-source to-do app: tasks, projects, Kanban, Gantt and sharing (SQLite built in)",
+	"tags": [
+		"tasks",
+		"to-do",
+		"kanban",
+		"productivity",
+		"projects",
+		"sqlite",
+		"self-hosted"
+	],
+	"repository": "https://github.com/go-vikunja/vikunja",
+	"image": "https://hub.docker.com/r/vikunja/vikunja",
+	"supported_architectures": [
+		"amd64",
+		"arm64",
+		"arm"
+	]
+}
