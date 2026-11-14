@@ -3,13 +3,21 @@
 		"post-install": [
 			{
 				"type": "warning",
+				"key": "post-install.admin",
 				"label": "Open Kutt right after the installation: the first visitor is prompted to create the admin account."
 			},
 			{
 				"type": "info",
+				"key": "post-install.access",
 				"label": "Registration and anonymous link creation are disabled by default. Set DISALLOW_REGISTRATION and DISALLOW_ANONYMOUS_LINKS to false in the container's environment to enable them (registration also needs the MAIL_* settings)."
 			}
-		]
+		],
+		"translation": {
+			"fr": {
+				"post-install.admin": "Ouvrez Kutt juste après l'installation : le premier visiteur est invité à créer le compte administrateur.",
+				"post-install.access": "L'inscription et la création de liens anonymes sont désactivées par défaut. Passez DISALLOW_REGISTRATION et DISALLOW_ANONYMOUS_LINKS à false dans l'environnement du conteneur pour les activer (l'inscription nécessite aussi les réglages MAIL_*)."
+			}
+		}
 	},
 	"minVersion": "0.12.0",
 	"services": {
