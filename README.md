@@ -22,6 +22,7 @@ The apps then show up in the Market, next to the official ones.
 | [Forgejo](https://codeberg.org/forgejo/forgejo) | Git forge with pull requests, issues and CI. Newer release line than the official market (v11). SQLite built in | `codeberg.org/forgejo/forgejo:17` | amd64, arm64, arm |
 | [Gameyfin](https://github.com/gameyfin/gameyfin) | Video game library manager with metadata and downloads from the browser | `ghcr.io/gameyfin/gameyfin:2` | amd64, arm64 |
 | [Kutt](https://github.com/thedevs-network/kutt) | URL shortener with custom domains, statistics and a REST API. SQLite built in | `kutt/kutt` | amd64, arm64 |
+| [Linkding](https://github.com/sissbruecker/linkding) | Minimal and fast bookmark manager. SQLite built in | `sissbruecker/linkding` | amd64, arm64, arm |
 | [MediaManager](https://github.com/maxdorninger/MediaManager) | Movie and TV library manager. PostgreSQL bundled | `quay.io/maxdorninger/mediamanager` | amd64, arm64 |
 | [Neko](https://github.com/m1k1o/neko) | Virtual browser shared over WebRTC | `ghcr.io/m1k1o/neko/firefox` | amd64, arm64 |
 | [NextGBA](https://github.com/nicotsx/nextgba) | GBA / GBC / GB emulator in the browser | `ghcr.io/nicotsx/nextgba` | amd64, arm64 |
@@ -36,6 +37,7 @@ The apps then show up in the Market, next to the official ones.
 - **Forgejo**: finish the setup page on first visit; the first account registered becomes the administrator. Git over SSH uses the host port chosen at install (`222` by default). The image follows the `17` tag, so auto-update stays on 17.x. Do not point it at the data volume of a Forgejo 11 install without reading the upstream upgrade notes.
 - **Gameyfin**: you create the admin account on first visit, so open the app right after install. The library chosen at install is mounted at `/opt/gameyfin-library` in the container. `APP_KEY` must be a base64 string that decodes to a valid AES key, so it is built from one Cosmos password plus a fixed suffix. Do not change it after install.
 - **Kutt**: you create the admin account on first visit, so open the app right after install. Registration and anonymous links are off by default (`DISALLOW_REGISTRATION`, `DISALLOW_ANONYMOUS_LINKS`). `DEFAULT_DOMAIN` is set from the hostname chosen at install. Change it if you change the route's hostname.
+- **Linkding**: an `admin` account is created on first start with a generated password, shown at the end of the install and stored in `LD_SUPERUSER_PASSWORD`.
 - **PairDrop**: it has no login and its route is public, so that phones and guests can use it. Turn on Cosmos authentication on the route if you want to restrict it. Set `WS_FALLBACK=true` if devices cannot connect peer-to-peer.
 - **RomM**: the first visit runs a setup wizard that creates the admin account, so open the app right after install. The library folder must contain a `roms` folder with one sub-folder per platform. The ScreenScraper, RetroAchievements and SteamGridDB keys asked at install are optional.
 - **NextGBA** and **ruTorrent** have no built-in login, so their route turns on **Cosmos authentication** (`AuthEnabled`).

@@ -1,0 +1,60 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "info",
+				"key": "post-install.login",
+				"label": "Log in with the user admin and the password {Passwords.0}. The password is stored in LD_SUPERUSER_PASSWORD. Change it from the Linkding admin page if you wish."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.login": "Connectez-vous avec l'utilisateur admin et le mot de passe {Passwords.0}. Le mot de passe est enregistré dans LD_SUPERUSER_PASSWORD. Vous pouvez le changer depuis la page d'administration de Linkding."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "sissbruecker/linkding:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"LD_SUPERUSER_NAME=admin",
+				"LD_SUPERUSER_PASSWORD={Passwords.0}",
+				"LD_CSRF_TRUSTED_ORIGINS={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}"
+			],
+			"labels": {
+				"cosmos-persistent-env": "LD_SUPERUSER_NAME, LD_SUPERUSER_PASSWORD",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Linkding/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/etc/linkding/data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:9090",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

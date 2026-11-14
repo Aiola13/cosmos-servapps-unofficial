@@ -1,0 +1,19 @@
+{
+	"name": "Linkding",
+	"longDescription": "<p>Linkding is a bookmark manager designed to be minimal, fast and easy to set up. It offers a clean interface, tags, full-text search, bulk editing, read-it-later, automatic titles and descriptions, archiving on the Internet Archive, import and export in Netscape format, browser extensions for Firefox and Chrome, a REST API and multi-user support with bookmark sharing.</p><p>This app uses the built-in SQLite database. An <code>admin</code> account is created on first start with a generated password, shown at the end of the installation.</p>",
+	"description": "A minimal, fast bookmark manager with tags, search, browser extensions and a REST API",
+	"tags": [
+		"bookmarks",
+		"links",
+		"read-it-later",
+		"sqlite",
+		"self-hosted"
+	],
+	"repository": "https://github.com/sissbruecker/linkding",
+	"image": "https://hub.docker.com/r/sissbruecker/linkding",
+	"supported_architectures": [
+		"amd64",
+		"arm64",
+		"arm"
+	]
+}
