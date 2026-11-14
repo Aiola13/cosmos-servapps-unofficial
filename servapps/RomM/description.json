@@ -1,0 +1,20 @@
+{
+	"name": "RomM",
+	"longDescription": "<p>RomM (ROM Manager) lets you scan, enrich and browse your game collection from a clean, responsive web interface. It matches your ROMs against metadata providers (ScreenScraper, RetroAchievements, SteamGridDB, Hasheous and more), downloads covers and screenshots, and lets you play many systems directly in the browser with EmulatorJS. It also handles saves, states and multi-disc games.</p><p>This stack bundles MariaDB. Your library folder must contain a <code>roms</code> folder with one sub-folder per platform. The setup wizard on first visit creates the admin account.</p>",
+	"description": "Game library manager: scan, enrich, browse and play your ROM collection in the browser (MariaDB bundled)",
+	"tags": [
+		"gaming",
+		"roms",
+		"emulator",
+		"retro",
+		"library",
+		"mariadb",
+		"self-hosted"
+	],
+	"repository": "https://github.com/rommapp/romm",
+	"image": "https://hub.docker.com/r/rommapp/romm",
+	"supported_architectures": [
+		"amd64",
+		"arm64"
+	]
+}

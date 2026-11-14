@@ -1,0 +1,159 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "libraryPath",
+				"label": "What is the path to your game library? (it must contain a 'roms' folder)",
+				"initialValue": "{DefaultDataPath}/romm/library",
+				"type": "text"
+			},
+			{
+				"name": "screenscraperUser",
+				"label": "ScreenScraper username (optional)",
+				"initialValue": "",
+				"type": "text"
+			},
+			{
+				"name": "screenscraperPassword",
+				"label": "ScreenScraper password (optional)",
+				"initialValue": "",
+				"type": "password"
+			},
+			{
+				"name": "retroachievementsKey",
+				"label": "RetroAchievements API key (optional)",
+				"initialValue": "",
+				"type": "password"
+			},
+			{
+				"name": "steamgriddbKey",
+				"label": "SteamGridDB API key (optional)",
+				"initialValue": "",
+				"type": "password"
+			}
+		],
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open RomM right after the installation: the first visit runs the setup wizard that creates the admin account."
+			},
+			{
+				"type": "info",
+				"key": "post-install.library",
+				"label": "Put your games in {Context.libraryPath}/roms/<platform> (for example roms/gba, roms/snes), then run a scan from RomM. Metadata provider keys can be changed later in the container's environment."
+			}
+		],
+		"translation": {
+			"fr": {
+				"form.libraryPath.label": "Quel est le chemin de votre bibliothèque de jeux ? (elle doit contenir un dossier « roms »)",
+				"form.screenscraperUser.label": "Nom d'utilisateur ScreenScraper (facultatif)",
+				"form.screenscraperPassword.label": "Mot de passe ScreenScraper (facultatif)",
+				"form.retroachievementsKey.label": "Clé API RetroAchievements (facultatif)",
+				"form.steamgriddbKey.label": "Clé API SteamGridDB (facultatif)",
+				"post-install.setup": "Ouvrez RomM juste après l'installation : la première visite lance l'assistant de configuration qui crée le compte administrateur.",
+				"post-install.library": "Placez vos jeux dans {Context.libraryPath}/roms/<plateforme> (par exemple roms/gba, roms/snes), puis lancez un scan depuis RomM. Les clés des fournisseurs de métadonnées peuvent être modifiées plus tard dans l'environnement du conteneur."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "rommapp/romm:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"DB_HOST={ServiceName}-db",
+				"DB_NAME=romm",
+				"DB_USER=romm-user",
+				"DB_PASSWD={Passwords.0}",
+				"ROMM_AUTH_SECRET_KEY={Passwords.2}{Passwords.3}",
+				"SCREENSCRAPER_USER={Context.screenscraperUser}",
+				"SCREENSCRAPER_PASSWORD={Context.screenscraperPassword}",
+				"RETROACHIEVEMENTS_API_KEY={Context.retroachievementsKey}",
+				"STEAMGRIDDB_API_KEY={Context.steamgriddbKey}",
+				"HASHEOUS_API_ENABLED=true"
+			],
+			"labels": {
+				"cosmos-persistent-env": "DB_PASSWD, ROMM_AUTH_SECRET_KEY, SCREENSCRAPER_USER, SCREENSCRAPER_PASSWORD, RETROACHIEVEMENTS_API_KEY, STEAMGRIDDB_API_KEY",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/RomM/icon.png"
+			},
+			"depends_on": {
+				"{ServiceName}-db": {}
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-resources",
+					"target": "/romm/resources",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-redis-data",
+					"target": "/redis-data",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-assets",
+					"target": "/romm/assets",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-config",
+					"target": "/romm/config",
+					"type": "volume"
+				},
+				{
+					"source": "{Context.libraryPath}",
+					"target": "/romm/library",
+					"type": "bind"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:8080",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		},
+		"{ServiceName}-db": {
+			"image": "mariadb:latest",
+			"container_name": "{ServiceName}-db",
+			"hostname": "{ServiceName}-db",
+			"restart": "unless-stopped",
+			"environment": [
+				"MARIADB_ROOT_PASSWORD={Passwords.1}",
+				"MARIADB_DATABASE=romm",
+				"MARIADB_USER=romm-user",
+				"MARIADB_PASSWORD={Passwords.0}"
+			],
+			"labels": {
+				"cosmos-persistent-env": "MARIADB_ROOT_PASSWORD, MARIADB_PASSWORD, MARIADB_USER, MARIADB_DATABASE",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "false",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-db-data",
+					"target": "/var/lib/mysql",
+					"type": "volume"
+				}
+			]
+		}
+	}
+}

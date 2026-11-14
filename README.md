@@ -25,6 +25,7 @@ The apps then show up in the Market, next to the official ones.
 | [Neko](https://github.com/m1k1o/neko) | Virtual browser shared over WebRTC | `ghcr.io/m1k1o/neko/firefox` | amd64, arm64 |
 | [NextGBA](https://github.com/nicotsx/nextgba) | GBA / GBC / GB emulator in the browser | `ghcr.io/nicotsx/nextgba` | amd64, arm64 |
 | [Readeck](https://codeberg.org/readeck/readeck) | Read-it-later and bookmark manager | `codeberg.org/readeck/readeck` | amd64, arm64 |
+| [RomM](https://github.com/rommapp/romm) | ROM library manager with metadata and in-browser play. MariaDB bundled | `rommapp/romm` | amd64, arm64 |
 | [ruTorrent](https://github.com/crazy-max/docker-rtorrent-rutorrent) | rTorrent and ruTorrent web UI | `crazymax/rtorrent-rutorrent` | amd64, arm64 |
 | [Wiki.js 3](https://github.com/requarks/wiki) | Next-generation Wiki.js. PostgreSQL 18 bundled | `ghcr.io/requarks/wiki:3` | amd64, arm64 |
 
@@ -32,6 +33,7 @@ The apps then show up in the Market, next to the official ones.
 
 - **Forgejo**: finish the setup page on first visit; the first account registered becomes the administrator. Git over SSH uses the host port chosen at install (`222` by default). The image follows the `17` tag, so auto-update stays on 17.x. Do not point it at the data volume of a Forgejo 11 install without reading the upstream upgrade notes.
 - **Kutt**: you create the admin account on first visit, so open the app right after install. Registration and anonymous links are off by default (`DISALLOW_REGISTRATION`, `DISALLOW_ANONYMOUS_LINKS`). `DEFAULT_DOMAIN` is set from the hostname chosen at install. Change it if you change the route's hostname.
+- **RomM**: the first visit runs a setup wizard that creates the admin account, so open the app right after install. The library folder must contain a `roms` folder with one sub-folder per platform. The ScreenScraper, RetroAchievements and SteamGridDB keys asked at install are optional.
 - **NextGBA** and **ruTorrent** have no built-in login, so their route turns on **Cosmos authentication** (`AuthEnabled`).
 - **Neko** uses WebRTC and publishes the UDP range `52000-52100` on the host. To stream outside your LAN, forward that range on your router and set `NEKO_WEBRTC_NAT1TO1` to your public IP. The generated user and admin passwords are shown at the end of the install.
 - **Wiki.js 3**: the admin email and password are asked at install. They only apply on first start, so change the password after your first login.
