@@ -1,0 +1,20 @@
+{
+	"name": "Beszel",
+	"longDescription": "<p>Beszel is a lightweight server monitoring platform with Docker statistics, historical data and alerts. It has a friendly web interface, simple configuration and is ready to use out of the box. It tracks CPU, memory, disk, network, temperature, GPU and per-container usage, supports multiple users, OAuth/OIDC login, automatic backups and a REST API.</p><p>Beszel has two parts: the hub (this app), which shows the dashboard, and a small agent that runs on each machine you want to monitor. Add a system from the hub to get the agent command for that machine.</p>",
+	"description": "Lightweight server monitoring hub with Docker stats, historical data and alerts",
+	"tags": [
+		"monitoring",
+		"metrics",
+		"docker",
+		"alerts",
+		"dashboard",
+		"self-hosted"
+	],
+	"repository": "https://github.com/henrygd/beszel",
+	"image": "https://hub.docker.com/r/henrygd/beszel",
+	"supported_architectures": [
+		"amd64",
+		"arm64",
+		"arm"
+	]
+}

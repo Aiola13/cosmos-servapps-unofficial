@@ -1,0 +1,63 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open Beszel right after the installation: the first visit asks you to create the admin account."
+			},
+			{
+				"type": "info",
+				"key": "post-install.agent",
+				"label": "This app installs the hub only. To monitor a machine, click Add system in Beszel and run the agent it gives you on that machine."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.setup": "Ouvrez Beszel juste après l'installation : la première visite vous demande de créer le compte administrateur.",
+				"post-install.agent": "Cette app installe uniquement le hub. Pour superviser une machine, cliquez sur « Ajouter un système » dans Beszel et lancez sur cette machine l'agent qu'il vous fournit."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "henrygd/beszel:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"APP_URL={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Beszel/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/beszel_data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:8090",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

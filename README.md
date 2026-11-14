@@ -18,6 +18,7 @@ The apps then show up in the Market, next to the official ones.
 
 | App | Description | Image | Arch |
 |---|---|---|---|
+| [Beszel](https://github.com/henrygd/beszel) | Lightweight server monitoring hub with Docker stats and alerts | `henrygd/beszel` | amd64, arm64, arm |
 | [Docmost](https://github.com/docmost/docmost) | Collaborative wiki and docs (Notion/Confluence alternative). PostgreSQL and Redis bundled | `docmost/docmost` | amd64, arm64 |
 | [Forgejo](https://codeberg.org/forgejo/forgejo) | Git forge with pull requests, issues and CI. Newer release line than the official market (v11). SQLite built in | `codeberg.org/forgejo/forgejo:17` | amd64, arm64, arm |
 | [Gameyfin](https://github.com/gameyfin/gameyfin) | Video game library manager with metadata and downloads from the browser | `ghcr.io/gameyfin/gameyfin:2` | amd64, arm64 |
@@ -35,6 +36,7 @@ The apps then show up in the Market, next to the official ones.
 
 ### App notes
 
+- **Beszel**: this installs the hub only. You create the admin account on first visit, then add each machine with **Add system**, which gives the agent command to run on it.
 - **Forgejo**: finish the setup page on first visit; the first account registered becomes the administrator. Git over SSH uses the host port chosen at install (`222` by default). The image follows the `17` tag, so auto-update stays on 17.x. Do not point it at the data volume of a Forgejo 11 install without reading the upstream upgrade notes.
 - **Gameyfin**: you create the admin account on first visit, so open the app right after install. The library chosen at install is mounted at `/opt/gameyfin-library` in the container. `APP_KEY` must be a base64 string that decodes to a valid AES key, so it is built from one Cosmos password plus a fixed suffix. Do not change it after install.
 - **Kutt**: you create the admin account on first visit, so open the app right after install. Registration and anonymous links are off by default (`DISALLOW_REGISTRATION`, `DISALLOW_ANONYMOUS_LINKS`). `DEFAULT_DOMAIN` is set from the hostname chosen at install. Change it if you change the route's hostname.
