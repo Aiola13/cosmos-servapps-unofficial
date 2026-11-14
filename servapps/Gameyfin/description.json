@@ -14,5 +14,11 @@
 	"supported_architectures": [
 		"amd64",
 		"arm64"
-	]
+	],
+	"translation": {
+		"fr": {
+			"description": "Gestionnaire de bibliothèque de jeux vidéo : analyse vos dossiers de jeux, récupère les métadonnées et permet de télécharger les jeux depuis le navigateur",
+			"longDescription": "<p>Gameyfin transforme une collection de jeux vidéo désorganisée en une belle bibliothèque, facile à parcourir et accessible depuis n'importe quel appareil doté d'un navigateur web. Il analyse vos dossiers de jeux, télécharge les métadonnées et les jaquettes, et vous permet de télécharger vos fichiers de jeux directement depuis l'interface web et de partager votre bibliothèque avec vos amis et votre famille.</p><p>Il est adapté au réseau local (tout est mis en cache localement), personnalisable avec des thèmes et extensible avec des plugins. Cette app suit la branche Gameyfin 2 et utilise sa base de données embarquée : aucun conteneur supplémentaire n'est nécessaire. Votre bibliothèque est montée dans <code>/opt/gameyfin-library</code> à l'intérieur du conteneur.</p>"
+		}
+	}
 }
