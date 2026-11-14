@@ -12,5 +12,14 @@
 	],
 	"repository": "https://github.com/thedevs-network/kutt",
 	"image": "https://hub.docker.com/r/kutt/kutt",
-	"supported_architectures": ["amd64", "arm64"]
+	"supported_architectures": [
+		"amd64",
+		"arm64"
+	],
+	"translation": {
+		"fr": {
+			"description": "Un raccourcisseur d'URL libre et moderne, avec domaines personnalisés, statistiques des liens et API REST",
+			"longDescription": "<p>Kutt est un raccourcisseur d'URL libre et moderne, avec prise en charge des domaines personnalisés. Créez, modifiez, protégez par mot de passe et faites expirer vos liens courts, consultez les statistiques de clics, gérez les utilisateurs depuis un panneau d'administration et automatisez le tout grâce à une API REST. Cette app fait tourner Kutt avec sa base SQLite intégrée : aucun conteneur de base de données supplémentaire n'est nécessaire. Au premier démarrage, vous êtes invité à créer le compte administrateur. L'inscription et la création de liens anonymes sont désactivées par défaut.</p>"
+		}
+	}
 }
