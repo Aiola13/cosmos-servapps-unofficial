@@ -18,7 +18,7 @@
 	"minVersion": "0.9.0",
 	"services": {
 		"{ServiceName}": {
-			"image": "ghcr.io/maxdorninger/mediamanager/mediamanager:latest",
+			"image": "quay.io/maxdorninger/mediamanager:latest",
 			"container_name": "{ServiceName}",
 			"restart": "unless-stopped",
 			"environment": [
@@ -85,6 +85,7 @@
 			"labels": {
 				"cosmos-persistent-env": "POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_DB",
 				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "false",
 				"cosmos-stack": "{ServiceName}",
 				"cosmos-stack-main": "{ServiceName}"
 			},

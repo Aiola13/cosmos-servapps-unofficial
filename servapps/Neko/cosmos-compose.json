@@ -1,5 +1,24 @@
 {
-	"cosmos-installer": {},
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "info",
+				"key": "post-install.login",
+				"label": "Log in with any display name. The password decides the role: user password {Passwords.1}, admin password {Passwords.2}. They are stored in NEKO_MEMBER_MULTIUSER_USER_PASSWORD and NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD."
+			},
+			{
+				"type": "warning",
+				"key": "post-install.webrtc",
+				"label": "The video stream uses UDP ports 52000-52100, published on the host. To use Neko from outside your LAN, forward these ports on your router and set NEKO_WEBRTC_NAT1TO1 to your public IP."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.login": "Connectez-vous avec le nom d'affichage de votre choix. Le mot de passe détermine le rôle : mot de passe utilisateur {Passwords.1}, mot de passe admin {Passwords.2}. Ils sont enregistrés dans NEKO_MEMBER_MULTIUSER_USER_PASSWORD et NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD.",
+				"post-install.webrtc": "Le flux vidéo utilise les ports UDP 52000-52100, publiés sur l'hôte. Pour utiliser Neko hors de votre réseau local, redirigez ces ports sur votre routeur et renseignez votre IP publique dans NEKO_WEBRTC_NAT1TO1."
+			}
+		}
+	},
 	"minVersion": "0.9.0",
 	"services": {
 		"{ServiceName}": {
@@ -7,6 +26,9 @@
 			"container_name": "{ServiceName}",
 			"restart": "unless-stopped",
 			"shm_size": "2gb",
+			"ports": [
+				"52000-52100:52000-52100/udp"
+			],
 			"environment": [
 				"NEKO_DESKTOP_SCREEN=1920x1080@30",
 				"NEKO_MEMBER_MULTIUSER_USER_PASSWORD={Passwords.1}",
@@ -15,8 +37,11 @@
 				"NEKO_WEBRTC_ICELITE=1"
 			],
 			"labels": {
+				"cosmos-persistent-env": "NEKO_MEMBER_MULTIUSER_USER_PASSWORD, NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD",
 				"cosmos-force-network-secured": "true",
 				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
 				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Neko/icon.png"
 			},
 			"routes": [

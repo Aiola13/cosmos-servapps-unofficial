@@ -20,7 +20,7 @@ The apps then show up in the Market, next to the official ones.
 |---|---|---|---|
 | [Docmost](https://github.com/docmost/docmost) | Collaborative wiki and docs (Notion/Confluence alternative). PostgreSQL and Redis bundled | `docmost/docmost` | amd64, arm64 |
 | [Kutt](https://github.com/thedevs-network/kutt) | URL shortener with custom domains, statistics and a REST API. SQLite built in | `kutt/kutt` | amd64, arm64 |
-| [MediaManager](https://github.com/maxdorninger/MediaManager) | Movie and TV library manager. PostgreSQL bundled | `ghcr.io/maxdorninger/mediamanager/mediamanager` | amd64, arm64 |
+| [MediaManager](https://github.com/maxdorninger/MediaManager) | Movie and TV library manager. PostgreSQL bundled | `quay.io/maxdorninger/mediamanager` | amd64, arm64 |
 | [Neko](https://github.com/m1k1o/neko) | Virtual browser shared over WebRTC | `ghcr.io/m1k1o/neko/firefox` | amd64, arm64 |
 | [NextGBA](https://github.com/nicotsx/nextgba) | GBA / GBC / GB emulator in the browser | `ghcr.io/nicotsx/nextgba` | amd64, arm64 |
 | [Readeck](https://codeberg.org/readeck/readeck) | Read-it-later and bookmark manager | `codeberg.org/readeck/readeck` | amd64, arm64 |
@@ -31,7 +31,7 @@ The apps then show up in the Market, next to the official ones.
 
 - **Kutt**: you create the admin account on first visit, so open the app right after install. Registration and anonymous links are off by default (`DISALLOW_REGISTRATION`, `DISALLOW_ANONYMOUS_LINKS`). `DEFAULT_DOMAIN` is set from the hostname chosen at install. Change it if you change the route's hostname.
 - **NextGBA** and **ruTorrent** have no built-in login, so their route turns on **Cosmos authentication** (`AuthEnabled`).
-- **Neko** uses WebRTC. To stream outside your LAN, publish the UDP range `52000-52100` (or set `NEKO_WEBRTC_UDPMUX`) and set `NEKO_WEBRTC_NAT1TO1` to your public IP.
+- **Neko** uses WebRTC and publishes the UDP range `52000-52100` on the host. To stream outside your LAN, forward that range on your router and set `NEKO_WEBRTC_NAT1TO1` to your public IP. The generated user and admin passwords are shown at the end of the install.
 - **Wiki.js 3**: the admin email and password are asked at install. They only apply on first start, so change the password after your first login.
 - Database passwords come from Cosmos (`{Passwords.N}`). They are kept across updates with the `cosmos-persistent-env` label.
 

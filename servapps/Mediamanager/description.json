@@ -1,6 +1,6 @@
 {
 	"name": "MediaManager",
-	"longDescription": "<p>MediaManager is a modern self-hosted media management system designed to organize and manage your media library efficiently. It provides an intuitive web interface for cataloging movies, TV shows, music, and other media files. With powerful search capabilities, metadata management, and a clean user interface, MediaManager helps you keep track of your entire media collection. The application uses PostgreSQL for robust data storage and supports custom media paths for flexible storage configuration.</p>",
+	"longDescription": "<p>MediaManager is a modern self-hosted media management system designed to organize and manage your media library efficiently. It provides an intuitive web interface for cataloging and downloading movies and TV shows. With powerful search capabilities, metadata management, and a clean user interface, MediaManager helps you keep track of your entire media collection. The application uses PostgreSQL for robust data storage and supports custom media paths for flexible storage configuration.</p>",
 	"description": "A modern self-hosted media management system for organizing your media library with PostgreSQL backend",
 	"tags": [
 		"media",
@@ -12,6 +12,6 @@
 		"tv-shows"
 	],
 	"repository": "https://github.com/maxdorninger/MediaManager",
-	"image": "https://github.com/maxdorninger/MediaManager/pkgs/container/mediamanager%2Fmediamanager",
+	"image": "https://quay.io/repository/maxdorninger/mediamanager",
 	"supported_architectures": ["amd64", "arm64"]
 }
