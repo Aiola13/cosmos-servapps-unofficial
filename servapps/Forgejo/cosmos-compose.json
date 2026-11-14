@@ -1,0 +1,82 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "sshPort",
+				"label": "Host port for Git over SSH",
+				"initialValue": "222",
+				"type": "text"
+			}
+		],
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open Forgejo right after the installation to finish the setup page. The first account registered becomes the administrator."
+			},
+			{
+				"type": "info",
+				"key": "post-install.ssh",
+				"label": "Git over SSH is published on host port {Context.sshPort}."
+			}
+		],
+		"translation": {
+			"fr": {
+				"form.sshPort.label": "Port de l'hôte pour Git en SSH",
+				"post-install.setup": "Ouvrez Forgejo juste après l'installation pour terminer la page de configuration. Le premier compte créé devient administrateur.",
+				"post-install.ssh": "Git en SSH est publié sur le port {Context.sshPort} de l'hôte."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "codeberg.org/forgejo/forgejo:17",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"TZ=auto",
+				"USER_UID=1000",
+				"USER_GID=1000",
+				"FORGEJO__database__DB_TYPE=sqlite3",
+				"FORGEJO__server__DOMAIN={Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+				"FORGEJO__server__ROOT_URL={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}/",
+				"FORGEJO__server__SSH_DOMAIN={Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+				"FORGEJO__server__SSH_PORT={Context.sshPort}"
+			],
+			"ports": [
+				"{Context.sshPort}:22"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Forgejo/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:3000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}

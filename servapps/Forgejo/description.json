@@ -1,0 +1,18 @@
+{
+	"name": "Forgejo",
+	"longDescription": "<p>Forgejo is a lightweight, community-driven Git forge: host repositories, review pull requests, track issues, publish packages and run CI with Forgejo Actions. It is written in Go, fast and easy to maintain.</p><p>This app installs the Forgejo 17 release line (the official Cosmos market ships Forgejo 11). It uses the built-in SQLite database, so no extra database container is needed. The image follows the <code>17</code> tag and receives 17.x patch releases through auto-update.</p><p>Finish the setup page on first visit. The first account registered becomes the administrator. Git over SSH is published on the host port chosen at install (222 by default).</p>",
+	"description": "Self-hosted Git forge with pull requests, issues, packages and CI (Forgejo 17 release line, SQLite built in)",
+	"tags": [
+		"git",
+		"development",
+		"code-hosting",
+		"ci",
+		"forgejo",
+		"gitea",
+		"sqlite",
+		"self-hosted"
+	],
+	"repository": "https://codeberg.org/forgejo/forgejo",
+	"image": "https://codeberg.org/forgejo/-/packages/container/forgejo",
+	"supported_architectures": ["amd64", "arm64", "arm"]
+}
