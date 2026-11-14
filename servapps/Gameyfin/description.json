@@ -1,0 +1,18 @@
+{
+	"name": "Gameyfin",
+	"longDescription": "<p>Gameyfin turns a disorganized collection of video games into a beautiful, easy-to-navigate library that you can access from any device with a web browser. It scans your game folders, downloads metadata and cover images, and lets you download your game files directly from the web UI and share your library with friends and family.</p><p>It is LAN-friendly (everything is cached locally), themeable and expandable with plugins. This app follows the Gameyfin 2 release line and uses its embedded database, so no extra container is needed. Your library is mounted at <code>/opt/gameyfin-library</code> inside the container.</p>",
+	"description": "Video game library manager: scan your game folders, fetch metadata and download games from the browser",
+	"tags": [
+		"gaming",
+		"games",
+		"library",
+		"downloads",
+		"self-hosted"
+	],
+	"repository": "https://github.com/gameyfin/gameyfin",
+	"image": "https://github.com/gameyfin/gameyfin/pkgs/container/gameyfin",
+	"supported_architectures": [
+		"amd64",
+		"arm64"
+	]
+}

@@ -1,0 +1,106 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "libraryPath",
+				"label": "What is the path to your game library?",
+				"initialValue": "{DefaultDataPath}/gameyfin/library",
+				"type": "text"
+			}
+		],
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open Gameyfin right after the installation: the first visit asks you to create the admin account."
+			},
+			{
+				"type": "info",
+				"key": "post-install.library",
+				"label": "Your games are mounted at /opt/gameyfin-library inside the container. Use that path when you add a library in Gameyfin."
+			}
+		],
+		"translation": {
+			"fr": {
+				"form.libraryPath.label": "Quel est le chemin de votre bibliothèque de jeux ?",
+				"post-install.setup": "Ouvrez Gameyfin juste après l'installation : la première visite vous demande de créer le compte administrateur.",
+				"post-install.library": "Vos jeux sont montés dans /opt/gameyfin-library à l'intérieur du conteneur. Utilisez ce chemin pour ajouter une bibliothèque dans Gameyfin."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "ghcr.io/gameyfin/gameyfin:2",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"APP_KEY={Passwords.0}AAAAAAAA",
+				"APP_URL={RootProtocol}://{Hostnames.{StaticServiceName}.{StaticServiceName}.host}",
+				"PUID=1000",
+				"PGID=1000"
+			],
+			"labels": {
+				"cosmos-persistent-env": "APP_KEY",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Gameyfin/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-db",
+					"target": "/opt/gameyfin/db",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-data",
+					"target": "/opt/gameyfin/data",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-backups",
+					"target": "/opt/gameyfin/backups",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-plugindata",
+					"target": "/opt/gameyfin/plugindata",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-plugins-installed",
+					"target": "/opt/gameyfin/plugins-installed",
+					"type": "volume"
+				},
+				{
+					"source": "{ServiceName}-logs",
+					"target": "/opt/gameyfin/logs",
+					"type": "volume"
+				},
+				{
+					"source": "{Context.libraryPath}",
+					"target": "/opt/gameyfin-library",
+					"type": "bind"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:8080",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}
