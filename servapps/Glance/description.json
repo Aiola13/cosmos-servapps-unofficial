@@ -1,0 +1,20 @@
+{
+	"name": "Glance",
+	"longDescription": "<p>Glance is a lightweight, highly customizable dashboard that puts all your feeds in one place: RSS feeds, subreddit posts, Hacker News, weather, YouTube channel uploads, Twitch channels, market prices, Docker containers status, server stats, custom widgets and more. It is fast, uses very little memory, works well on mobile, supports themes and is configured with a single YAML file.</p><p>A sample <code>glance.yml</code> is downloaded into the config volume on first start. Glance has no login by default, so the route is protected by Cosmos authentication.</p>",
+	"description": "A lightweight, customizable dashboard that puts all your feeds in one place",
+	"tags": [
+		"dashboard",
+		"homepage",
+		"rss",
+		"feeds",
+		"startpage",
+		"self-hosted"
+	],
+	"repository": "https://github.com/glanceapp/glance",
+	"image": "https://hub.docker.com/r/glanceapp/glance",
+	"supported_architectures": [
+		"amd64",
+		"arm64",
+		"arm"
+	]
+}

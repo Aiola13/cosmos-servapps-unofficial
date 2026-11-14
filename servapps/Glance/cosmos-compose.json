@@ -1,0 +1,66 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "info",
+				"key": "post-install.config",
+				"label": "Glance is configured with the file glance.yml, in the {ServiceName}-config volume. A sample configuration is downloaded on first start: edit it, then restart the container."
+			},
+			{
+				"type": "info",
+				"key": "post-install.auth",
+				"label": "Glance has no login by default, so the route is protected by Cosmos authentication."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.config": "Glance se configure avec le fichier glance.yml, dans le volume {ServiceName}-config. Une configuration d'exemple est téléchargée au premier démarrage : modifiez-la, puis redémarrez le conteneur.",
+				"post-install.auth": "Glance n'a pas de connexion par défaut, donc la route est protégée par l'authentification Cosmos."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "glanceapp/glance:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"entrypoint": "sh -c eval$IFS$GLANCE_BOOT",
+			"environment": [
+				"TZ=auto",
+				"GLANCE_BOOT=[ -s /app/config/glance.yml ] || wget -q -O /app/config/glance.yml https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Glance/artefacts/glance.yml; exec /app/glance --config /app/config/glance.yml"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/Glance/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-config",
+					"target": "/app/config",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"AuthEnabled": true,
+					"target": "http://{ServiceName}:8080",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}
