@@ -1,0 +1,27 @@
+{
+	"name": "Forgejo Runner",
+	"longDescription": "<p>Forgejo Runner is the program that executes Forgejo Actions workflows. Forgejo stores your code and your workflow files (<code>.forgejo/workflows</code>) but does not run jobs itself: a runner fetches the pending jobs from Forgejo, executes them in containers and reports the result. Use it to test your code, build Docker images and publish them to the Forgejo registry on every push.</p><p>This stack bundles a dedicated Docker-in-Docker container, so jobs never touch the Docker of your host. That container runs in privileged mode. Before installing, create a runner in Forgejo (Site administration &gt; Actions &gt; Runners &gt; Create new runner) and copy its UUID and token into the install form. This requires a recent Forgejo, such as the Forgejo app of this store.</p>",
+	"description": "Runs your Forgejo Actions workflows (CI/CD), with a dedicated Docker-in-Docker container",
+	"tags": [
+		"ci",
+		"cd",
+		"forgejo",
+		"actions",
+		"runner",
+		"development",
+		"docker",
+		"self-hosted"
+	],
+	"repository": "https://code.forgejo.org/forgejo/runner",
+	"image": "https://code.forgejo.org/forgejo/-/packages/container/runner",
+	"supported_architectures": [
+		"amd64",
+		"arm64"
+	],
+	"translation": {
+		"fr": {
+			"description": "Exécute vos workflows Forgejo Actions (CI/CD), avec un conteneur Docker-in-Docker dédié",
+			"longDescription": "<p>Forgejo Runner est le programme qui exécute les workflows Forgejo Actions. Forgejo stocke votre code et vos fichiers de workflow (<code>.forgejo/workflows</code>) mais n'exécute aucune tâche lui-même : un runner récupère les tâches en attente auprès de Forgejo, les exécute dans des conteneurs et renvoie le résultat. Utilisez-le pour tester votre code, construire des images Docker et les publier dans le registre de Forgejo à chaque push.</p><p>Cette app embarque un conteneur Docker-in-Docker dédié : les tâches ne touchent jamais au Docker de votre hôte. Ce conteneur tourne en mode privilégié. Avant d'installer, créez un runner dans Forgejo (Administration du site &gt; Actions &gt; Runners &gt; Créer un nouveau runner) et copiez son UUID et son jeton dans le formulaire d'installation. Il faut un Forgejo récent, comme l'app Forgejo de ce store.</p>"
+		}
+	}
+}

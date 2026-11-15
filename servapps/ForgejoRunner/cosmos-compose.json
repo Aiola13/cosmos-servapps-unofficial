@@ -1,0 +1,105 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "forgejoUrl",
+				"label": "URL of your Forgejo instance (for example https://git.example.com)",
+				"initialValue": "https://",
+				"type": "text"
+			},
+			{
+				"name": "runnerUuid",
+				"label": "Runner UUID (in Forgejo: Site administration > Actions > Runners > Create new runner)",
+				"initialValue": "",
+				"type": "text"
+			},
+			{
+				"name": "runnerToken",
+				"label": "Runner token (shown next to the UUID)",
+				"initialValue": "",
+				"type": "password"
+			}
+		],
+		"post-install": [
+			{
+				"type": "info",
+				"key": "post-install.online",
+				"label": "The runner should now appear as online in the Runners page of Forgejo. Use runs-on: docker (or ubuntu-latest) in your workflows. Jobs run in a dedicated Docker-in-Docker container, not on the host's Docker."
+			},
+			{
+				"type": "warning",
+				"key": "post-install.config",
+				"label": "The URL, UUID and token are only read on first start, to write config.yml in the {ServiceName}-data volume. To change them later, edit that file (or delete it and update the container's environment), then restart the container."
+			}
+		],
+		"translation": {
+			"fr": {
+				"form.forgejoUrl.label": "URL de votre instance Forgejo (par exemple https://git.example.com)",
+				"form.runnerUuid.label": "UUID du runner (dans Forgejo : Administration du site > Actions > Runners > Créer un nouveau runner)",
+				"form.runnerToken.label": "Jeton du runner (affiché à côté de l'UUID)",
+				"post-install.online": "Le runner doit maintenant apparaître en ligne dans la page Runners de Forgejo. Utilisez runs-on: docker (ou ubuntu-latest) dans vos workflows. Les tâches s'exécutent dans un conteneur Docker-in-Docker dédié, pas sur le Docker de l'hôte.",
+				"post-install.config": "L'URL, l'UUID et le jeton ne sont lus qu'au premier démarrage, pour écrire config.yml dans le volume {ServiceName}-data. Pour les modifier ensuite, éditez ce fichier (ou supprimez-le et mettez à jour l'environnement du conteneur), puis redémarrez le conteneur."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "data.forgejo.org/forgejo/runner:13",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"user": "0:0",
+			"entrypoint": "/usr/bin/dumb-init sh -f -c eval$IFS$RUNNER_BOOT",
+			"environment": [
+				"DOCKER_HOST=tcp://{ServiceName}-dind:2375",
+				"FORGEJO_URL={Context.forgejoUrl}",
+				"RUNNER_UUID={Context.runnerUuid}",
+				"RUNNER_TOKEN={Context.runnerToken}",
+				"RUNNER_BOOT=[ -s /data/config.yml ] || printf 'log:\\n\\040\\040level:\\040info\\nrunner:\\n\\040\\040capacity:\\0401\\n\\040\\040envs:\\n\\040\\040\\040\\040DOCKER_HOST:\\040tcp://127.0.0.1:2375\\n\\040\\040labels:\\n\\040\\040\\040\\040-\\040docker:docker://ghcr.io/catthehacker/ubuntu:act-latest\\n\\040\\040\\040\\040-\\040ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest\\ncontainer:\\n\\040\\040network:\\040host\\n\\040\\040docker_host:\\040\"-\"\\nserver:\\n\\040\\040connections:\\n\\040\\040\\040\\040forgejo:\\n\\040\\040\\040\\040\\040\\040url:\\040%s\\n\\040\\040\\040\\040\\040\\040uuid:\\040%s\\n\\040\\040\\040\\040\\040\\040token:\\040%s\\n' \"$FORGEJO_URL\" \"$RUNNER_UUID\" \"$RUNNER_TOKEN\" > /data/config.yml; exec forgejo-runner daemon --config /data/config.yml"
+			],
+			"labels": {
+				"cosmos-persistent-env": "FORGEJO_URL, RUNNER_UUID, RUNNER_TOKEN",
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/ForgejoRunner/icon.png"
+			},
+			"depends_on": {
+				"{ServiceName}-dind": {}
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/data",
+					"type": "volume"
+				}
+			]
+		},
+		"{ServiceName}-dind": {
+			"image": "docker:dind",
+			"container_name": "{ServiceName}-dind",
+			"hostname": "{ServiceName}-dind",
+			"restart": "unless-stopped",
+			"privileged": true,
+			"command": "dockerd -H tcp://0.0.0.0:2375 --tls=false",
+			"environment": [
+				"DOCKER_TLS_CERTDIR="
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "false",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-dind-data",
+					"target": "/var/lib/docker",
+					"type": "volume"
+				}
+			]
+		}
+	}
+}
