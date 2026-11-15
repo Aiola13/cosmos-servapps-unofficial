@@ -1,0 +1,26 @@
+{
+	"name": "MkDocs Material",
+	"longDescription": "<p>Material for MkDocs is a documentation framework on top of MkDocs, the static site generator for project documentation. Write your documentation in Markdown and get a professional, searchable, mobile-friendly site with navigation, dark mode, code highlighting, admonitions, tabs and more, all configured from a single <code>mkdocs.yml</code> file.</p><p>This app runs the MkDocs live preview server on the folder chosen at install: every change to your Markdown files or to <code>mkdocs.yml</code> reloads the site. A starter project using the Material theme is created on first start if the folder is empty. The server has no login, so the route is protected by Cosmos authentication by default.</p>",
+	"description": "Write documentation in Markdown and serve it as a searchable site with the Material theme",
+	"tags": [
+		"documentation",
+		"markdown",
+		"static-site",
+		"mkdocs",
+		"wiki",
+		"self-hosted"
+	],
+	"repository": "https://github.com/squidfunk/mkdocs-material",
+	"image": "https://hub.docker.com/r/squidfunk/mkdocs-material",
+	"supported_architectures": [
+		"amd64",
+		"arm64",
+		"arm"
+	],
+	"translation": {
+		"fr": {
+			"description": "Rédigez votre documentation en Markdown et servez-la sous forme de site avec recherche et thème Material",
+			"longDescription": "<p>Material for MkDocs est un framework de documentation bâti sur MkDocs, le générateur de sites statiques pour la documentation de projets. Rédigez votre documentation en Markdown et obtenez un site professionnel, adapté au mobile, avec recherche, navigation, mode sombre, coloration du code, encadrés, onglets et plus encore, le tout configuré dans un seul fichier <code>mkdocs.yml</code>.</p><p>Cette app lance le serveur de prévisualisation de MkDocs sur le dossier choisi à l'installation : chaque modification de vos fichiers Markdown ou de <code>mkdocs.yml</code> recharge le site. Un projet de départ avec le thème Material est créé au premier démarrage si le dossier est vide. Le serveur n'a pas de connexion : la route est donc protégée par défaut par l'authentification Cosmos.</p>"
+		}
+	}
+}

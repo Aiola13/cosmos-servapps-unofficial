@@ -1,0 +1,74 @@
+{
+	"cosmos-installer": {
+		"form": [
+			{
+				"name": "docsPath",
+				"label": "Where do you want to store your documentation project (mkdocs.yml and the docs folder)?",
+				"initialValue": "{DefaultDataPath}/mkdocs",
+				"type": "text"
+			}
+		],
+		"post-install": [
+			{
+				"type": "info",
+				"key": "post-install.edit",
+				"label": "Your site is built from {Context.docsPath}: edit mkdocs.yml and the Markdown files in the docs folder, the site reloads on its own. A starter project using the Material theme is created on first start if the folder has no mkdocs.yml."
+			},
+			{
+				"type": "warning",
+				"key": "post-install.auth",
+				"label": "This runs the MkDocs live preview server, which has no login, so the route is protected by Cosmos authentication. Turn it off on the route if you want a public site."
+			}
+		],
+		"translation": {
+			"fr": {
+				"form.docsPath.label": "Où voulez-vous stocker votre projet de documentation (mkdocs.yml et le dossier docs) ?",
+				"post-install.edit": "Votre site est généré à partir de {Context.docsPath} : modifiez mkdocs.yml et les fichiers Markdown du dossier docs, le site se recharge tout seul. Un projet de départ avec le thème Material est créé au premier démarrage si le dossier ne contient pas de mkdocs.yml.",
+				"post-install.auth": "Cette app lance le serveur de prévisualisation de MkDocs, qui n'a pas de connexion : la route est donc protégée par l'authentification Cosmos. Désactivez-la sur la route si vous voulez un site public."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "squidfunk/mkdocs-material:latest",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"entrypoint": "/sbin/tini -- sh -c eval$IFS$MKDOCS_BOOT",
+			"environment": [
+				"MKDOCS_BOOT=[ -f /docs/mkdocs.yml ] || ( mkdocs new /docs && printf 'theme:\\n\\040\\040name:\\040material\\n' >> /docs/mkdocs.yml ); exec mkdocs serve --dev-addr=0.0.0.0:8000"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/MkDocsMaterial/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{Context.docsPath}",
+					"target": "/docs",
+					"type": "bind"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"AuthEnabled": true,
+					"target": "http://{ServiceName}:8000",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		}
+	}
+}
