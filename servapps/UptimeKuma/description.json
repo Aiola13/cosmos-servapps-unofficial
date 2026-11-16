@@ -1,0 +1,27 @@
+{
+	"name": "Uptime Kuma",
+	"longDescription": "<p>Uptime Kuma is an easy-to-use self-hosted monitoring tool. Monitor the uptime of HTTP(s) sites, TCP ports, pings, DNS records, Docker containers, databases, game servers and more, with check intervals down to 20 seconds. Get notified through more than 90 services (Telegram, Discord, Gotify, ntfy, email…), publish status pages, track certificate expiry and follow response times on clean charts.</p><p>This app installs the Uptime Kuma 2 release line (the official Cosmos market ships version 1), with the built-in SQLite database. A read-only Docker socket proxy is bundled to monitor containers without giving Uptime Kuma direct access to <code>docker.sock</code>. You create the admin account on first visit.</p>",
+	"description": "Easy-to-use monitoring tool with notifications and status pages (Uptime Kuma 2 release line)",
+	"tags": [
+		"monitoring",
+		"uptime",
+		"status-page",
+		"notifications",
+		"alerts",
+		"sqlite",
+		"self-hosted"
+	],
+	"repository": "https://github.com/louislam/uptime-kuma",
+	"image": "https://hub.docker.com/r/louislam/uptime-kuma",
+	"supported_architectures": [
+		"amd64",
+		"arm64",
+		"arm"
+	],
+	"translation": {
+		"fr": {
+			"description": "Outil de supervision simple d'utilisation, avec notifications et pages de statut (branche Uptime Kuma 2)",
+			"longDescription": "<p>Uptime Kuma est un outil de supervision auto-hébergé, simple d'utilisation. Surveillez la disponibilité de sites HTTP(s), de ports TCP, de pings, d'enregistrements DNS, de conteneurs Docker, de bases de données, de serveurs de jeux et plus encore, avec des vérifications jusqu'à toutes les 20 secondes. Recevez des notifications via plus de 90 services (Telegram, Discord, Gotify, ntfy, e-mail…), publiez des pages de statut, suivez l'expiration des certificats et les temps de réponse sur des graphiques clairs.</p><p>Cette app installe la branche Uptime Kuma 2 (le market officiel de Cosmos propose la version 1), avec la base SQLite intégrée. Un proxy de socket Docker en lecture seule est inclus pour superviser les conteneurs sans donner à Uptime Kuma un accès direct à <code>docker.sock</code>. Vous créez le compte administrateur à la première visite.</p>"
+		}
+	}
+}

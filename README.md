@@ -36,6 +36,7 @@ The apps then show up in the Market, next to the official ones.
 | [Readeck](https://codeberg.org/readeck/readeck) | Read-it-later and bookmark manager | `codeberg.org/readeck/readeck` | amd64, arm64 |
 | [RomM](https://github.com/rommapp/romm) | ROM library manager with metadata and in-browser play. MariaDB bundled | `rommapp/romm` | amd64, arm64 |
 | [ruTorrent](https://github.com/crazy-max/docker-rtorrent-rutorrent) | rTorrent and ruTorrent web UI | `crazymax/rtorrent-rutorrent` | amd64, arm64 |
+| [Uptime Kuma](https://github.com/louislam/uptime-kuma) | Monitoring tool with notifications and status pages. Newer release line than the official market (v1). SQLite built in | `louislam/uptime-kuma:2` | amd64, arm64, arm |
 | [Vikunja](https://github.com/go-vikunja/vikunja) | To-do app with lists, Kanban and Gantt views. SQLite built in | `vikunja/vikunja` | amd64, arm64, arm |
 | [Wiki.js 3](https://github.com/requarks/wiki) | Next-generation Wiki.js. PostgreSQL 18 bundled | `ghcr.io/requarks/wiki:3` | amd64, arm64 |
 
@@ -53,6 +54,7 @@ The apps then show up in the Market, next to the official ones.
 - **PairDrop**: it has no login and its route is public, so that phones and guests can use it. Turn on Cosmos authentication on the route if you want to restrict it. Set `WS_FALLBACK=true` if devices cannot connect peer-to-peer.
 - **Pocket ID**: open `/setup` right after install to create the admin account. Passkeys need HTTPS. `ENCRYPTION_KEY` is generated and must not change afterwards.
 - **RomM**: the first visit runs a setup wizard that creates the admin account, so open the app right after install. The library folder must contain a `roms` folder with one sub-folder per platform. The ScreenScraper, RetroAchievements and SteamGridDB keys asked at install are optional.
+- **Uptime Kuma**: you create the admin account on first visit, so open the app right after install. The image follows the `2` tag and the database is SQLite (`UPTIME_KUMA_DB_TYPE=sqlite`). A read-only Docker socket proxy is bundled: add `http://<name>-socket:2375` as a Docker Host in Uptime Kuma to monitor containers. Read the upstream migration guide before reusing the data volume of a version 1 install.
 - **Vikunja**: registration is open by default. Create your account, then set `VIKUNJA_SERVICE_ENABLEREGISTRATION=false`. The container runs as root (`user: 0:0`) because the image runs as UID 1000 and cannot write to fresh Docker volumes otherwise.
 - **NextGBA** and **ruTorrent** have no built-in login, so their route turns on **Cosmos authentication** (`AuthEnabled`).
 - **Neko** uses WebRTC and publishes the UDP range `52000-52100` on the host. To stream outside your LAN, forward that range on your router and set `NEKO_WEBRTC_NAT1TO1` to your public IP. The generated user and admin passwords are shown at the end of the install.

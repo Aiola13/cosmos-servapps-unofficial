@@ -1,0 +1,112 @@
+{
+	"cosmos-installer": {
+		"post-install": [
+			{
+				"type": "warning",
+				"key": "post-install.setup",
+				"label": "Open Uptime Kuma right after the installation: the first visit asks you to create the admin account."
+			},
+			{
+				"type": "info",
+				"key": "post-install.docker",
+				"label": "To monitor Docker containers, add a Docker Host in Uptime Kuma (Settings > Docker Hosts) with the connection type TCP / HTTP and the URL http://{ServiceName}-socket:2375. This read-only socket proxy is bundled so that Uptime Kuma never gets direct access to docker.sock."
+			}
+		],
+		"translation": {
+			"fr": {
+				"post-install.setup": "Ouvrez Uptime Kuma juste après l'installation : la première visite vous demande de créer le compte administrateur.",
+				"post-install.docker": "Pour superviser des conteneurs Docker, ajoutez un hôte Docker dans Uptime Kuma (Paramètres > Hôtes Docker) avec le type de connexion TCP / HTTP et l'URL http://{ServiceName}-socket:2375. Ce proxy de socket en lecture seule est inclus pour qu'Uptime Kuma n'ait jamais d'accès direct à docker.sock."
+			}
+		}
+	},
+	"minVersion": "0.12.0",
+	"services": {
+		"{ServiceName}": {
+			"image": "louislam/uptime-kuma:2",
+			"container_name": "{ServiceName}",
+			"hostname": "{ServiceName}",
+			"restart": "unless-stopped",
+			"environment": [
+				"TZ=auto",
+				"UPTIME_KUMA_DB_TYPE=sqlite"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "true",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}",
+				"cosmos-icon": "https://aiola13.github.io/cosmos-servapps-unofficial/servapps/UptimeKuma/icon.png"
+			},
+			"volumes": [
+				{
+					"source": "{ServiceName}-data",
+					"target": "/app/data",
+					"type": "volume"
+				}
+			],
+			"routes": [
+				{
+					"name": "{ServiceName}",
+					"description": "Expose {ServiceName} to the web",
+					"useHost": true,
+					"target": "http://{ServiceName}:3001",
+					"mode": "SERVAPP",
+					"Timeout": 14400000,
+					"ThrottlePerMinute": 12000,
+					"BlockCommonBots": true,
+					"SmartShield": {
+						"Enabled": true
+					}
+				}
+			]
+		},
+		"{ServiceName}-socket": {
+			"image": "tecnativa/docker-socket-proxy:latest",
+			"container_name": "{ServiceName}-socket",
+			"hostname": "{ServiceName}-socket",
+			"restart": "unless-stopped",
+			"security_opt": [
+				"no-new-privileges:true"
+			],
+			"environment": [
+				"LOG_LEVEL=info",
+				"CONTAINERS=1",
+				"EVENTS=1",
+				"PING=1",
+				"VERSION=1",
+				"POST=0",
+				"AUTH=0",
+				"SECRETS=0",
+				"BUILD=0",
+				"COMMIT=0",
+				"CONFIGS=0",
+				"DISTRIBUTION=0",
+				"EXEC=0",
+				"IMAGES=0",
+				"INFO=0",
+				"NETWORKS=0",
+				"NODES=0",
+				"PLUGINS=0",
+				"SERVICES=0",
+				"SESSION=0",
+				"SWARM=0",
+				"SYSTEM=0",
+				"TASKS=0",
+				"VOLUMES=0"
+			],
+			"labels": {
+				"cosmos-force-network-secured": "true",
+				"cosmos-auto-update": "false",
+				"cosmos-stack": "{ServiceName}",
+				"cosmos-stack-main": "{ServiceName}"
+			},
+			"volumes": [
+				{
+					"source": "/var/run/docker.sock",
+					"target": "/var/run/docker.sock",
+					"type": "bind"
+				}
+			]
+		}
+	}
+}
